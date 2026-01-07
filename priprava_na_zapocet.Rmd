@@ -218,10 +218,72 @@ cat("Pravděpodobnost, že alespoň čtyři ze zvolených hlasovali PRO:", p_c*1
 
 ```{r}
 
+
+#Před Vánocemi se provádí výlov kaprů. Bylo zjištěno, že délka kaprů v rybníku je přibližně normálně rozdělená se střední hodnotou 20,5 cm a směrodatnou odchylkou 5,4 cm.
+
+#Určete:
+
+#a) jaký podíl kaprů určených k výlovu přesahuje délku 25 cm,
+#b) jaký podíl kaprů má délku v intervalu od 14 cm do 18 cm,
+#c) jakou délku (v cm) přesáhne alespoň 25 % kaprů.
+
+#(a) 0,2023; b) 0,2073; c) 24,142 cm
+
+a <- 25
+b1 <- 18
+b2 <- 14
+#c <- ?
+
+p_a <- 1 - pnorm(a, 20.5, 5.4)
+
+cat("PŘESAHUJE DÉLKU 25CM :", p_a,"\n")
+
+
+p_b <-  (pnorm(b1,20.5,5.4) - pnorm(b2,20.5,5.4))
+
+cat("podíl kaprů má délku v intervalu od 14 cm do 18 cm", p_b,"\n")
+
+p_c <- qnorm(0.75,20.5,5.4)
+cat("Alespoň 25 % kaprů přesáhne délku : ", p_c, "cm" ,"\n")
+
+
+
 ```
 
 
 
+```{r}
+#Příklad S2 (normální rozdělení) — přepis do češtiny, bez řešení
+
+#Určitá firma se rozhodla podrobit své zaměstnance IQ testu.
+#Průměrný výsledek IQ testu byl 115 a disperze 256.
+#Předpokládejme, že hodnoty IQ testu lze spolehlivě popsat normálním (Gaussovým) rozdělením.
+
+#Určete pravděpodobnost, že hodnota IQ testu u náhodně vybraného zaměstnance:
+
+#a) bude menší nebo rovna 120,
+#b) bude větší než 105,
+#c) bude v intervalu od 100 do 130.
+
+#(a) 0,6227; b) 0,7373; c) 0,6514
+
+rozptyl <- 256 #disperze
+
+odchylka <- sqrt(rozptyl)
+
+p_a <- pnorm(120,mean = 115, sd = odchylka)
+
+p_a
+
+
+p_b <- 1 - pnorm(105,mean = 115, sd = odchylka)
+
+p_b
+
+p_c <- pnorm(130, 115, odchylka) - pnorm(100,115,odchylka)
+
+p_c
+```
 
 
 
