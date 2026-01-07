@@ -1,5 +1,5 @@
 ---
-title: "PAS_ZPP_2025-01-08"
+title: "priprava_na_zapocet"
 output:
   html_document:
     #toc: yes
@@ -35,23 +35,86 @@ library(psych)
 ```
 
 ```{r}
-# Nastavení zdrojové složky
-setwd("C:/Users/helik/Dropbox/Vyuka/Predmety/PAS/PAS_IS/PAS_API_testy_AaL_ZS_24_25/Studenti_2025-01-08")
-```
-
-```{r}
-# Načtení dat
-cars <- read_excel("cars.xlsx")
-View(cars)
-```
-
-
-```{r}
 
 ```
 
+```{r}
+#Príklad 0
+#Nakreslite pravdepodobnostnú funkciu (pmf) a distribučnú funkciu (cdf) náhodných veličín, ktoré sa
+#vyskytujú v príkladoch 2, 3, 6 a 16. Na aké rozdelenie poukazuje graf pmf vzhľadom na (a)symetriu?
+#Vypočítajte strednú hodnotu, smerodajnú odchýlku a varianciu týchto náhodných veličín
+#a interpretujte ich. 
+
+
+
+```
+
 
 ```{r}
+
+#Príklad 1
+#Zásielka 1000 výrobkov obsahuje 15 % nekvalitných výrobkov. Náhodne s vrátením vyberieme štyri
+#výrobky. Určite pravdepodobnosť, že práve tri z nich budú kvalitné. Vypočítajte túto
+#pravdepodobnosť, keď výbery realizujeme bez vrátenia. (0.368475; 0.369388) 
+
+
+#1000 výrobků -> diskrétní proměnná
+#počty neuspechu == 15% nekvalitnich vyrobku .. 
+
+p1 <- dhyper(3, 850, 150, 4)  #bez vracení .. 0,15*1000 = 150 .. 1000-150 = 850 ... POČET VYROBKU-PROCENTA... počet vybranych vyrobku
+cat("bez vrácení, známé počty kusů (chceme 3 kvalitní, uspech je 850 vyrobků a neuspech 150 vyrobku-.. vyber ze 4.. jaká bude. pravdepodobnost že ty 3 ze 4 budou PŘI NEVRACENÍ DO ´KRABICE ´ kvalitní je ): ",p1)
+
+cat("\n")
+
+p2 <- dbinom(3, 4, 0.85)  #s vracenim .. pravdepodobnost uspechu je 0,85 .. počet vybraných vyrobků
+cat("s vrácením, známá pravděpodobnost (CHCEME 3 funkční, vybirame ze 4. pravdepodobnost je 0.85% uspesnych .. ´kontrolovane vracime zpet do seznamu´ ",p2)
+
+
+
+```
+
+
+```{r}
+#Príklad 2
+
+#Student má potíže se vstáváním. Za posledních 375 dní nebyl schopen vstát na zazvonění budíku ve 120 případech a nestihl své ranní povinnosti. V semestru #je 13 přednášek. Určete pravděpodobnost, že student:
+#a) nestihne většinu přednášek,
+#b) zaspí nejvýše dvakrát,
+#c) stihne všechny přednášky,
+#d) nestihne žádnou přednášku.
+
+#Postup pro a) -> nestihne většinu přednášek .. nestihne víc jak 50% z 13 přednášek .. (zaspal 120x z 375 dní)
+#zaspání = nějaký % počet x z 13 přednášek .. pravděpodobnost zaspání = 120/375
+#určit p .. 50+% z 13 = 7 přednášek
+
+x <- 6
+počet_přednasek = 13
+pravdepodobnost_zaspani <- 120/375
+p_a <- pbinom(x,13,pravdepodobnost_zaspani)
+cat("Pravděpodobnost, že student nestihne většinu přednášek je: ", p_a*100 , "%")
+
+cat("\n")
+
+p_b <- pbinom(2,13,pravdepodobnost_zaspani)
+cat("Pravděpodobnost, že student zaspí nejvýše dvakrat je: ", p_b*100 , "%")
+
+cat("\n")
+
+#dbinom(2, 13, p)   # P(X = 2)
+#pbinom(2, 13, p)   # P(X ≤ 2)
+
+
+
+
+p_c <- dbinom(0,13,pravdepodobnost_zaspani)
+cat("Pravděpodobnost, že student stihne všechny přednášky je: ", p_c*100 , "%")
+
+cat("\n")
+
+p_d <- dbinom(13,13, pravdepodobnost_zaspani)
+cat("Pravděpodobnost, že student nestihne žádnou přednášku je: ", p_d*100 , "%")
+
+
 
 ```
 
