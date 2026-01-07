@@ -121,6 +121,25 @@ cat("Pravděpodobnost, že student nestihne žádnou přednášku je: ", p_d*100
 
 ```{r}
 
+
+#**Příklad 3**
+#Personalista ví, že o určitou účetní pozici ve firmě projeví zájem uchazeč s ekonomickým vysokoškolským vzděláním s pravděpodobností 0,65 a uchazeč #bez odpovídajícího ekonomického vzdělání s pravděpodobností 0,35. Určete pravděpodobnost, že **až čtvrtý uchazeč** o danou pozici bude mít #ekonomické vysokoškolské vzdělání. *(0,02787)*
+
+
+#JEDNA SE O TYP POČET POKUSU D OPRVNIHO USPECHU.. POUZIJEME DGEOM
+
+pravdepodobnost_vzdelani <- 0.65
+#mame 0.65 usopechgu a 0.35 neuspechu my chceme spocitat jaka je pravdepodobnost ze bude mit odpovidajici vzdelani
+
+
+#dgeom(k, p) = P( k neúspěchů PŘED prvním úspěchem )
+
+
+p <- dgeom(3,pravdepodobnost_vzdelani)
+
+p
+
+
 ```
 
 
