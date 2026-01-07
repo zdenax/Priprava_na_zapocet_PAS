@@ -1,0 +1,87 @@
+---
+title: "priprava_na_zapocet"
+output:
+  html_document:
+    #toc: yes
+    toc_depth: 
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+  pdf_document: default
+  word_document: default
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	#echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r echo=FALSE, results='asis'}
+if(knitr::opts_chunk$get()$echo) cat("\n\n## Načtení knihoven\n\n")
+```
+
+
+```{r Nacteni knihoven}
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(DescTools)
+library(psych)
+```
+
+
+
+```{r}
+load("C:/Users/2004z/iCloudDrive/AAAVysoká Škola/2-ZS/PAS/Priprava_na_zapocet_PAS/vzor_AR202425_zápočtový_test/prij.RData")
+
+data <- prij
+
+str(data)
+summary(data)
+
+
+par(mfrow = c(1, 3))
+
+hist(data$zemprij,
+     main = "Histogram zemprij",
+     xlab = "zemprij")
+
+boxplot(data$zemprij,
+        main = "Boxplot zemprij")
+
+qqnorm(data$zemprij,
+       main = "QQ-plot zemprij")
+qqline(data$zemprij)
+
+par(mfrow = c(1, 1))  # reset
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
