@@ -141,5 +141,96 @@ p
 
 
 ```
+```{r}
+
+#**Příklad 6**
+#Realitní makléř jedná v průměru s 5 zákazníky za den. Jaká je pravděpodobnost, že počet zákazníků makléře za jeden den
+#a) bude **právě 5**,
+#b) bude **větší než 4**.
+#*(a) 0,1755; b) 0,5595)*
+
+
+
+#je to za den ttakže jednotu času == poissnovo.. zkusíme ho udělat jako 1 a kdyžtak 24 
+
+lambda <- 5 #V PRŮMĚRU 5 ZÁKAZNÍKŮ ZA DEN
+
+p_a <- dpois(5, lambda)
+
+cat("Pravděpodobnost, že počet zákazníků bude přesně 5", p_a*100, "%")
+
+#druhe bude trochu jiné ... máme tam větší než.. tudíž musíme udělat 1-naše funkce
+
+cat("\n")
+
+p_b <- 1 - ppois(4, lambda)
+
+cat("Pravděpodobnost, že počet zákazníků větší než 4", p_b*100 , "%")
+
+
+```
+
+```{r}
+#Příklad 16 ()
+
+#Ve výboru je 25 členů, z toho 15 hlasuje „pro“ a 10 „proti“.
+#Náhodně je vybráno 5 členů.
+
+#Určete pravděpodobnost, že:
+#a) právě 3 z vybraných budou hlasovat „pro“,
+#b) nejvýše 2 budou hlasovat „pro“,
+#c) alespoň 4 budou hlasovat „pro“.
+
+
+#JSOU ZNÁME POČTY PRO A PROTI.. TO ZNÍ JAKO HYPERGEOMETICKÉ
+
+pro <- 15
+proti <- 10
+
+celkem <- pro+proti
+
+výběr <- 3 #potom nejvyse 2 a potom alespon 4
+
+vybraní_členi <- 5
+
+p_a <- dhyper(pravdepodonost_vyberu, pro, proti, vybraní_členi)
+
+
+cat("Pravděpodobnost, že právě 3 ze zvolených hlasovali PRO:", p_a*100,"%", "\n")
+
+výběr <- 2 
+p_b = phyper(výběr,pro,proti,vybraní_členi)
+
+cat("Pravděpodobnost, že nějvýše dva ze zvolených hlasovali PRO:", p_b*100,"%", "\n")
+
+
+výběr <- 4
+
+p_c <- 1 - phyper(výběr-1, pro, proti, vybraní_členi)
+
+
+cat("Pravděpodobnost, že alespoň čtyři ze zvolených hlasovali PRO:", p_c*100,"%" ,"\n")
+
+
+
+```
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
