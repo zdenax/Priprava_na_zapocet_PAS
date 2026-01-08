@@ -62,6 +62,90 @@ par(mfrow = c(1, 1))  # reset
 
 ```
 
+```{r}
+
+load("C:/Users/2004z/iCloudDrive/AAAVysoká Škola/2-ZS/PAS/Priprava_na_zapocet_PAS/vzor_AR202425_zápočtový_test/prij.RData")
+
+load("C:/Users/2004z/iCloudDrive/AAAVysoká Škola/2-ZS/PAS/Priprava_na_zapocet_PAS/vzor_AR202425_zápočtový_test/prij.RData")
+
+mat <- prij$mat
+mat
+
+library(DescTools)
+
+modusy <- Mode(mat)
+
+modusy
+
+hist(mat)
+abline(v = modusy, lwd = 2)
+
+
+cat("1. Najdˇete vˇsechny modusy promˇenn´e matprij (kolik jich je a kde pˇribliˇznˇe leˇz´ı – staˇc´ı
+odhad na z´akladˇe grafu)")
+
+cat("řešení: Je celkem jeden modus (jednomodální rozložení, a nachází se na hodnotě 2.0")
+
+```
+
+```{r}
+
+cat("2. Jak´e je rozdˇelen´ı promˇenn´e ss3 (symetrick´e, pravostrann´e, levostrann´e)? Obsahuje
+promˇenn´a nˇejak´e odlehl´e hodnoty?")
+
+
+ss3 <- prij$ss3
+
+
+ss3
+
+hist(ss3)
+
+cat("Rozdělení je  pravostranné, obsahuje mérně odlehlé hodnoty")
+
+cat("Rozdělení je pravostranné, z grafu nejsou patrné odlehlé hodnoty.")
+
+
+```
+
+
+
+```{r}
+cat("Maj´ı vˇetˇs´ı variabilitu zn´amky z 2. nebo ze 3. roˇcn´ık˚u SS (promˇenn´e ˇ ss2 a ss3 )? Z ˇceho
+tak usuzujete?")
+
+
+
+ss3 <- prij$ss3
+ss2 <- prij$ss2
+
+
+ss3_SD <- sd(ss3)
+ss2_SD <- sd(ss2)
+
+IQR_SS3 <- IQR(ss3)
+IQR_SS2 <- IQR(ss2)
+
+
+var_ss3 <- var(ss3)
+var_ss2 <- var(ss2)
+               
+cat("\n")
+cat("\n")
+cat("\n")
+cat("\n")
+
+cat("SS3: SD,SQR,VAR", ss3_SD, IQR_SS3, var_ss3)
+cat("\n")
+
+cat("SS2: SD,SQR,VAR", ss2_SD, IQR_SS2, var_ss2)
+
+
+boxplot(ss3)
+boxplot(ss2)
+
+cat("Vyčteno z údajů směrodatné odchylky MEzikvartilového rozpětí a rozptylu, je jasně vidět, že S3 má vyšší variabilitu známek")
+```
 
 
 
@@ -70,18 +154,196 @@ par(mfrow = c(1, 1))  # reset
 
 
 
+```{r}
+
+#> **Jaký je vztah mezi celkovým počtem bodů u přijímacích zkoušek a počtem bodů ze zeměpisu (proměnné celprij a zemprij)? Jsou tyto proměnné na sobě závislé? Pokud ano, je tato závislost silná nebo slabá a je přímá, nebo nepřímá?**
+
+celprij <- prij$celprij
+zemprij <- prij$zemprij
+
+
+celprij
+zemprij
+
+
+cor(celprij, zemprij)
+
+
+cat(" JIž z výpisu a kontextu, je znát, že hodnota celprij je přímo a silně závislá na zemprij, jelikož tvoří velkou část jejího původu společne s matprij........ A HLAVNĚ TO VYČTEME Z HODNOTY Z FUNKCE COR, která nám říká, že je středně silně a přímo závislá")
+
+
+
+
+```
+
+
+
+
+```{r}
+cat("> **Z kterého předmětu měli studenti nejhorší známky (porovnejte proměnné matzem, meteo, geol, mat a stat)? Z kterého předmětu je největší podíl známek lepších než 3 a jaký je tento podíl?**
+")
+
+matyem <- prij$matyem
+meteo<- prij$meteo
+geol<- prij$geol
+mat<- prij$mat
+stat<- prij$stat
+
+lepsi_jak_3 <- sapply(data.frame(matzem, meteo, geol, mat, stat), function(x) mean(x<3))
+lepsi_jak_3
+max <- max(lepsi_jak_3)
+
+max
+
+pocet <- function(x) sum(x<3)
+
+pocet_lepsi_jak_3 <- sapply(data.frame(mat),pocet)
+nejhorsi <- sapply(data.frame(matzem, meteo, geol, mat, stat), function(x) mean(x))
+nejhorsi
+nejhoorsi <- sapply(data.frame(meteo), function(x) mean(x))
+
+
+cat("nejlepší známky byli z předmětu matematika a známek lepších jak 3 (1 a 2) bylo:", pocet_lepsi_jak_3, "Nejhorší známky jsou z předmětu Meteo s průměrem:",nejhoorsi )
 
 
 
 
 
 
+```
+
+
+```{r}
+cat("> **Řekli byste, že si muži i ženy volí ke studiu stejné obory, nebo ne? Existuje mezi oborem a pohlavím nějaký vztah, a pokud ano, jaký (zkuste ho popsat vlastními slovy)?**
+")
+
+
+pohlaví <- prij$Pohlavi
+obor <- prij$Obor
+
+
+chisq.test(table(pohlaví,obor))
+
+p_value = 0.05<0.165  
+
+p_value true/false
+
+cat("Na základě Pearson's Chi-squared testu nelze prokázat zda je vztah statisticky významný")
+
+```
 
 
 
+```{r}
+
+cat("> **Má proměnná *zemprij* normální rozdělení? Použijte vhodné grafy a případné odchylky od normality popište.**")
+
+
+zem <- prij$zemprij
 
 
 
+shapiro.test(zem)
+p=0.217
+
+p>0.05
+
+PlotQQ(zem)
 
 
+boxplot(zem)
+
+
+cat("Q–Q graf naznačuje přibližnou normalitu rozdělení s odchylkami v horní části, zejména od hodnot kolem 70 bodů. Test nám také potvrdil, že normalitu nezamítáme :)")
+
+
+
+```
+
+
+
+```{r}
+
+cat("> **Spočtěte a interpretujte 95% interval spolehlivosti pro známky ze 3. ročníku SS (proměnná *ss3*).**")
+
+
+ss3_ <- prij$ss3
+
+
+intrvl_spoleh <- MeanCI(ss3, conf.level = 0.95)
+
+intrvl_spoleh
+
+plot(MeanCI(ss3, conf.level = 0.95))
+
+
+cat("Dle 95% intevalu spolehlivosti, lze vyvodit, že nejlepší průměr je 1,73 , průměrný 1,59 a nejhorší 1,88" , " Průměry skupiny se výrazně neliší")
+
+
+
+cat("TAKHGLE TO MA BYT PODLE CHATA : S 95% spolehlivostí leží skutečný průměr proměnné ss3 v intervalu (1,59; 1,88).")
+
+```
+```{r}
+cat("> **Liší se střední hodnota známek ze 3. ročníku SS mezi pohlavími (proměnné *ss3* a *Pohlaví*)? Své tvrzení podložte výpočtem a vhodným grafickým znázorněním.**")
+
+
+pohlavi <- prij$Pohlavi
+znamky <- ss3
+
+cat("\n")
+cat("\n")
+cat("\n")
+
+
+vysledek <- t.test(ss3~pohlavi)
+vysledek
+boxplot(ss3 ~ pohlavi, col="white",
+        main="SS3 podle pohlaví", xlab="Pohlaví", ylab="SS3")
+
+
+cat("Průměrná hodnota známek ze 3. ročníku SS se mezi pohlavími liší – muži mají v průměru horší známky (1,84) než ženy (1,64).")
+```
+```{r}
+
+cat("Basketbalista Martin promění v průměru 7 z 10 trestných hodů. Jaká je pravděpodobnost, že v zápase z 20 trestných hodů promění alespoň 15?")
+
+probab <- 7/10
+
+n= 20
+
+x= 15
+
+p = 1-  pbinom(x-1,n,probab)
+
+cat("Je to :", p*100 , "%")
+
+
+
+```
+```{r}
+cat("> **IQ je standardní škála, která má v populaci normální rozdělení se střední hodnotou 100 a rozptylem 225.**
+> (a) Jaká je pravděpodobnost, že IQ náhodně vybrané osoby bude nižší než 95?
+> (b) Jaká je pravděpodobnost, že náhodně vybraná osoba splní podmínku pro vstup do Mensa Česko, pokud je dolní hranice IQ 130?
+> (c) Jaká je pravděpodobnost, že IQ náhodně vybrané osoby bude v intervalu 110–120?
+")
+
+rozptyl <- 225
+
+odchylka <- sqrt(rozptyl)
+
+p_a <- pnorm(95,mean = 100, sd = odchylka)
+
+p_a
+
+
+p_b <- 1-pnorm(130,100,odchylka)
+
+p_b
+
+p_c <- pnorm(120,100,odchylka) - pnorm(110,100,odchylka)
+
+p_c
+
+```
 
