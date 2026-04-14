@@ -10,3 +10,5 @@ ale obecně 1.část máme výstup z R a máme ho popsat (popisné statistiky, k
 
 Zkouška: 
 přístupný pouze školní počítač a máme přístupné pouze materiály od Černíkové (na jejích stránkách - ještě dodá tahák k R) - pozor, materiály neobsahují vzorce které chce, abychom si pamatovali.
+---
+vault: [[Vault/School/PAS]]
